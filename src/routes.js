@@ -1,12 +1,11 @@
 import Main from './pages/main.svelte';
-import Content from './pages/content.svelte';
+import Contact from './pages/contact.svelte';
+import Gallery from './pages/gallery.svelte';
 
-const routes = [
-  {
-    name: '/',
-    component: Main,
-  },
-  { name: 'images/:content', component: Content },
-];
+const routes = {
+  '/': Main,
+  '/contact': Contact,
+  '/:gallery': Gallery,
+};
 
 export default routes;

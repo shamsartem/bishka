@@ -1,5 +1,5 @@
 <script>
-  import { Router } from 'svelte-router-spa';
+  import Router from 'svelte-spa-router';
   import routes from './routes';
 </script>
 
@@ -12,7 +12,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-grow: 1;
     width: 100%;
     min-width: 320px;
   }
