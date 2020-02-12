@@ -7,7 +7,7 @@ import Loader from '../components/loader.svelte';
   <Loader/>
 {:then db}
   <div class="links-container">
-    <a href="/" class="link">На главную</a>
+    <a href="#/" class="link">На главную</a>
     {#each db.pages as {page, slug}}
       <a href="#/{slug}" class="link">{page}</a>
     {/each}

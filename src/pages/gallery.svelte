@@ -38,7 +38,7 @@ onDestroy(unsubscribe);
 {:else}
   <div class="hero-container" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{page.hero}');">
     <div class="links-container">
-      <a href="/" class="link">На главную</a>
+      <a href="#/" class="link">На главную</a>
       {#each pages as {page, slug}}
         <a href="#/{slug}" class="link">{page}</a>
       {/each}
