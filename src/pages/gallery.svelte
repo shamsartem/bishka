@@ -3,19 +3,21 @@ import { location } from 'svelte-spa-router';
 import { onDestroy } from 'svelte';
 import db from '../db';
 import Loader from '../components/loader.svelte';
+import Dialog from '../components/dialog.svelte';
 
 let pages;
 let page;
 let locationValue;
+let imageInDialog = null;
 
-let fullScreenImage = null;
-function setFullScreen(src) {
-  if (fullScreenImage === src) {
-    fullScreenImage = null;
-    return;
-  }
+let dialogIsVisible = false;
+$: if (!dialogIsVisible) {
+  imageInDialog = null;
+}
 
-  fullScreenImage = src;
+function showDialog(image) {
+  dialogIsVisible = true;
+  imageInDialog = image;
 }
 
 db.then((data) => {
@@ -25,12 +27,10 @@ db.then((data) => {
 const unsubscribe = location.subscribe((value) => {
   locationValue = value;
 });
-
-$: {
-  page = pages && pages.find((p) => locationValue === `/${p.slug}`);
-}
-
 onDestroy(unsubscribe);
+
+$: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
+
 </script>
 
 {#if !pages}
@@ -52,20 +52,36 @@ onDestroy(unsubscribe);
       {#each page.images as image}
         <li
           class="image-cotainer"
-          class:full-screen={fullScreenImage === image.src}
-          on:click={setFullScreen(image.src)}
         >
-          <figure>
+          <figure class="figureInList">
             <img
-              class="image"
+              class="imageInList"
               src={image.src} alt={image.description}
+              on:click={showDialog(image)}
             >
-            <figcaption>{image.description}</figcaption>
+            {#if image.description}
+              <figcaption class="figcaptionInList">
+                {image.description}
+              </figcaption>
+            {/if}
           </figure>
         </li>
       {/each}
     </ul>
   </div>
+  <Dialog bind:visible={dialogIsVisible} fullscreen>
+    <figure class="figureInDialog">
+      {#if imageInDialog.description}
+        <figcaption class="figcaptionInDialog">
+          {imageInDialog.description}
+        </figcaption>
+      {/if}
+      <img
+        class="imageInDialog"
+        src={imageInDialog.src} alt={imageInDialog.description}
+      >
+    </figure>
+  </Dialog>
 {/if}
 
 <style>
@@ -148,26 +164,18 @@ h1 {
   padding: 0 var(--space-md);
 }
 
-.image {
+.imageInList {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-figure {
+.figureInList {
   height: 100%;
   position: relative;
 }
 
-.image-cotainer.full-screen {
-  position: fixed;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-figcaption {
+.figcaptionInList {
   opacity: 0;
   max-height: 50px;
   position: absolute;
@@ -182,8 +190,25 @@ figcaption {
   background: linear-gradient(0deg, rgba(2,0,36,0.7) 16%, rgba(255,255,255,0) 100%);
 }
 
-figure:hover figcaption {
+.figureInList:hover .figcaptionInList {
   opacity: 1;
+}
+
+.figureInDialog {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.figcaptionInDialog {
+  background-color: var(--c-white);
+  padding: 50px;
+  width: 100%;
+}
+
+.imageInDialog {
+  width: 100%;
 }
 </style>
 

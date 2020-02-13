@@ -1,11 +1,13 @@
 <script>
   import Router from 'svelte-spa-router';
   import routes from './routes';
+  import Backdrop from './components/backdrop.svelte';
 </script>
 
 <div class="wrapper">
   <Router {routes} />
 </div>
+<Backdrop/>
 
 <style>
   .wrapper {
