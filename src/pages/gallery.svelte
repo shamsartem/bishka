@@ -51,13 +51,12 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
     <ul class="gallery">
       {#each page.images as image}
         <li
-          class="image-cotainer"
+          class="image-container"
         >
           <figure class="figureInList">
             <img
               class="imageInList"
               src={image.src} alt={image.description}
-              on:click={showDialog(image)}
             >
             {#if image.description}
               <figcaption class="figcaptionInList">
@@ -65,6 +64,11 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
               </figcaption>
             {/if}
           </figure>
+          <button
+            class="open-image-button"
+            on:click={showDialog(image)}
+          >
+          </button>
         </li>
       {/each}
     </ul>
@@ -164,6 +168,18 @@ h1 {
   padding: 0 var(--space-md);
 }
 
+.image-container {
+  position: relative;
+}
+
+.open-image-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .imageInList {
   width: 100%;
   height: 100%;
@@ -190,7 +206,8 @@ h1 {
   background: linear-gradient(0deg, rgba(2,0,36,0.7) 16%, rgba(255,255,255,0) 100%);
 }
 
-.figureInList:hover .figcaptionInList {
+.image-container:hover .figcaptionInList,
+.image-container:focus-within .figcaptionInList {
   opacity: 1;
 }
 
