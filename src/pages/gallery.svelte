@@ -65,6 +65,7 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
             {/if}
           </figure>
           <button
+            aria-hidden="true"
             class="open-image-button"
             on:click={showDialog(image)}
           >
