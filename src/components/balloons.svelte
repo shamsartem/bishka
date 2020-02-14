@@ -3,8 +3,16 @@ import { onMount } from 'svelte';
 
 let time = new Date();
 
+let text;
 $: isBirthday = time.getMonth() === 11 && time.getDate() === 8;
-$: text = isBirthday ? '☺BDAY!' : 'bishka';
+$: isValentines = time.getMonth() === 1 && time.getDate() === 14;
+$: if (isBirthday) {
+  text = '☺BDAY!';
+} else if (isValentines) {
+  text = '❤❤❤❤❤❤';
+} else {
+  text = 'bishka';
+}
 
 onMount(() => {
   const interval = setInterval(() => {
@@ -17,7 +25,11 @@ onMount(() => {
 });
 </script>
 
-<ul class="balloons" class:_yellow={!isBirthday}>
+<ul
+  class="balloons"
+  class:_yellow={!isBirthday}
+  class:_red={isValentines}
+>
   {#each text as letter}
     <li class="balloon">
       <span class="text">{letter}</span>
@@ -27,19 +39,19 @@ onMount(() => {
 
 <style>
 .balloons {
-  --c-red-a90: #ff0000e6;
-  --c-orange-a90: #f2702de6;
-  --c-yellow-a90: #f2c23ae6;
-  --c-green-a90: #b4e043e6;
-  --c-blue-a90:	#33ccffe6;
-  --c-purple-a90: #6840dae6;
+  --c-red-a: #ee0d0dcc;
+  --c-orange-a: #f2702dcc;
+  --c-yellow-a: #f2c23acc;
+  --c-green-a: #b4e043cc;
+  --c-blue-a:	#33ccffcc;
+  --c-purple-a: #6840dacc;
 
-  --c-red-light-a90: #ff9999e6;
-  --c-orange-light-a90: #f9c5abe6;
-  --c-yellow-light-a90: #f9e6b0e6;
-  --c-green-light-a90: #e0f2b3e6;
-  --c-blue-light-a90:	#adeafee6;
-  --c-purple-light-a90: #c2b2f0e6;
+  --c-red-light-a: #f09c9ccc;
+  --c-orange-light-a: #f9c5abcc;
+  --c-yellow-light-a: #f9e6b0cc;
+  --c-green-light-a: #e0f2b3cc;
+  --c-blue-light-a:	#adeafecc;
+  --c-purple-light-a: #b197f8cc;
 
   display: flex;
   height: 25vmin;
@@ -49,12 +61,21 @@ onMount(() => {
 }
 
 .balloons._yellow .balloon {
-  background-color: var(--c-yellow-a90);
-  box-shadow: inset -10px 10px 10px var(--c-yellow-light-a90);
+  background-color: var(--c-yellow-a);
+  box-shadow: inset -10px 10px 10px var(--c-yellow-light-a);
 }
 
 .balloons._yellow .balloon::before {
-  color: var(--c-yellow-a90);
+  color: var(--c-yellow-a);
+}
+
+.balloons._red .balloon {
+  background-color: var(--c-red-a);
+  box-shadow: inset -10px 10px 10px var(--c-red-light-a);
+}
+
+.balloons._red .balloon::before {
+  color: var(--c-red-a);
 }
 
 .balloon {
@@ -63,7 +84,7 @@ onMount(() => {
   align-items: center;
   line-height: var(--lh-xs);
   flex: 1;
-  background-color: var(--c-red-a90);
+  background-color: var(--c-red-a);
   border-radius: 0;
   border-radius: 80% 80% 80% 80%;
   position: relative;
@@ -77,63 +98,63 @@ onMount(() => {
 }
 
 .balloon:nth-child(1) {
-  background-color: var(--c-red-a90);
-  box-shadow: inset -10px 10px 10px var(--c-red-light-a90);
+  background-color: var(--c-red-a);
+  box-shadow: inset -10px 10px 10px var(--c-red-light-a);
   animation: balloon1 6s ease-in-out infinite;
 }
 
 .balloon:nth-child(1)::before {
-  color: var(--c-red-a90);
+  color: var(--c-red-a);
 }
 
 .balloon:nth-child(2) {
-  background-color: var(--c-orange-a90);
-  box-shadow: inset -10px 10px 10px var(--c-orange-light-a90);
+  background-color: var(--c-orange-a);
+  box-shadow: inset -10px 10px 10px var(--c-orange-light-a);
   animation: balloon2 6s ease-in-out infinite;
 }
 
 .balloon:nth-child(2)::before {
-  color: var(--c-orange-a90);
+  color: var(--c-orange-a);
 }
 
 .balloon:nth-child(3) {
-  background-color: var(--c-yellow-a90);
-  box-shadow: inset -10px 10px 10px var(--c-yellow-light-a90);
+  background-color: var(--c-yellow-a);
+  box-shadow: inset -10px 10px 10px var(--c-yellow-light-a);
   animation: balloon4 6s ease-in-out infinite;
 }
 
 .balloon:nth-child(3)::before {
-  color: var(--c-yellow-a90);
+  color: var(--c-yellow-a);
 }
 
 .balloon:nth-child(4) {
-  background-color: var(--c-green-a90);
-  box-shadow: inset -10px 10px 10px var(--c-green-light-a90);
+  background-color: var(--c-green-a);
+  box-shadow: inset -10px 10px 10px var(--c-green-light-a);
   animation: balloon1 5s ease-in-out infinite;
 }
 
 .balloon:nth-child(4)::before {
-  color: var(--c-green-a90);
+  color: var(--c-green-a);
 }
 
 .balloon:nth-child(5) {
-  background-color: var(--c-blue-a90);
-  box-shadow: inset -10px 10px 10px var(--c-blue-light-a90);
+  background-color: var(--c-blue-a);
+  box-shadow: inset -10px 10px 10px var(--c-blue-light-a);
   animation: balloon3 5s ease-in-out infinite;
 }
 
 .balloon:nth-child(5)::before {
-  color: var(--c-blue-a90);
+  color: var(--c-blue-a);
 }
 
 .balloon:nth-child(6) {
-  background-color: var(--c-purple-a90);
-  box-shadow: inset -10px 10px 10px var(--c-purple-light-a90);
+  background-color: var(--c-purple-a);
+  box-shadow: inset -10px 10px 10px var(--c-purple-light-a);
   animation: balloon5 6s ease-in-out infinite;
 }
 
 .balloon:nth-child(6)::before {
-  color: var(--c-purple-a90);
+  color: var(--c-purple-a);
 }
 
 .text {
