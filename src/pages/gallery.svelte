@@ -274,20 +274,23 @@ nav {
 .emailLink {
   text-align: center;
 }
-.gallery-container {
-  max-width: 1920px;
-}
 
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: calc(100vw / 3);
+  grid-auto-rows: 460px;
 }
 
 @media(min-width: 1350px) {
   .gallery {
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: calc(100vw / 4);
+  }
+}
+
+@media(max-width: 800px) {
+  .gallery {
+    grid-auto-rows: calc(100vw / 3);
+    grid-gap: 2px;
   }
 }
 
