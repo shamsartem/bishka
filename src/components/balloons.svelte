@@ -25,39 +25,42 @@ onMount(() => {
 });
 </script>
 
-<ul
+<div
   class="balloons"
   class:_yellow={!isBirthday}
   class:_red={isValentines}
 >
   {#each text as letter}
-    <li class="balloon">
-      <span class="text">{letter}</span>
-    </li>
+    <div class="balloon">
+      <div class="text">{letter}</div>
+    </div>
   {/each}
-</ul>
+</div>
 
 <style>
 .balloons {
-  --c-red-a: #ee0d0dcc;
-  --c-orange-a: #f2702dcc;
-  --c-yellow-a: #f2c23acc;
-  --c-green-a: #b4e043cc;
-  --c-blue-a:	#33ccffcc;
-  --c-purple-a: #6840dacc;
+  --c-red-a: #ee0d0d;
+  --c-orange-a: #f2702d;
+  --c-yellow-a: #ffe70b;
+  --c-green-a: #b4e043;
+  --c-blue-a:	#33ccff;
+  --c-purple-a: #6840da;
 
-  --c-red-light-a: #f09c9ccc;
-  --c-orange-light-a: #f9c5abcc;
-  --c-yellow-light-a: #f9e6b0cc;
-  --c-green-light-a: #e0f2b3cc;
-  --c-blue-light-a:	#adeafecc;
-  --c-purple-light-a: #b197f8cc;
+  --c-red-light-a: #f09c9c;
+  --c-orange-light-a: #f9c5ab;
+  --c-yellow-light-a: #f9e6b0;
+  --c-green-light-a: #fff8be;
+  --c-blue-light-a:	#adeafe;
+  --c-purple-light-a: #b197f8;
 
   display: flex;
-  height: 25vmin;
-  min-height: 70px;
-  margin: 0 auto;
+  height: 17vw;
+  max-height: 150px;
+  min-height: 50px;
   position: relative;
+  width: 100%;
+  font-family: var(--ff-baloo);
+  color: var(--c-black);
 }
 
 .balloons._yellow .balloon {
@@ -93,8 +96,8 @@ onMount(() => {
 .balloon::before {
   content: "▲";
   position: absolute;
-  bottom: -2.9vmin;
-  font-size: 5vmin;
+  bottom: -2.3vmin;
+  font-size: 3vmin;
 }
 
 .balloon:nth-child(1) {
@@ -159,13 +162,13 @@ onMount(() => {
 
 .text {
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
 }
 
 @media(min-width: 567px) {
   .text {
-    font-size: 30px;
+    font-size: 40px;
   }
 }
 

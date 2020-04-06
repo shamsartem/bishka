@@ -1,6 +1,7 @@
 :root {
   /* Font */
   --ff-default: montserrat, arial, sans-serif;
+  --ff-baloo: baloo, arial, sans-serif;
 
   /* Font size */
   --fz-md: 15px;
@@ -15,8 +16,8 @@
   --lh-md: 1.6667;
 
   /* Colors */
-  --c-yellow: #f2c23a;
-  --c-purple: #6840da;
+  --c-yellow: #ffe70b;
+  --c-black: #000;
   --c-gray-1: #1a1a1e;
   --c-gray-3: #36363b;
   --c-gray-5: #818193;

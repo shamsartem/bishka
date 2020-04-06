@@ -38,6 +38,7 @@ export default {
     copy({
       targets: [
         { src: 'public/fonts/*', dest: 'public/build/fonts' },
+        { src: 'public/img/*', dest: 'public/build/img' },
       ],
     }),
     cssPlugin({ output: 'public/build/global.css' }),

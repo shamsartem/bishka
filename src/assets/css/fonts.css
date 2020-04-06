@@ -19,3 +19,14 @@
   font-style: normal;
   font-display: var(--font-display);
 }
+
+@font-face {
+  font-family: baloo;
+  src:
+    local('Baloo-Regular'),
+    url('fonts/Baloo-Regular.woff2') format('woff2'),
+    url('fonts/Baloo-Regular.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: var(--font-display);
+}

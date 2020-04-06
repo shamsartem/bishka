@@ -16,5 +16,7 @@
     align-items: center;
     width: 100%;
     min-width: 320px;
+    flex-grow: 1;
+    position: relative;
   }
 </style>

@@ -90,23 +90,24 @@
   }
 
   .closeButton {
-    position: absolute;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    right: 10px;
+    right: 20px;
     top: 10px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--c-white);
+    background-color: var(--c-yellow);
+    z-index: 1;
   }
 
   .closeButton::before {
     content: '';
     background-color: var(--c-gray-1);
     width: 60%;
-    height: 5px;
+    height: 2px;
     position: absolute;
     transform: rotate(45deg);
   }
@@ -115,7 +116,7 @@
     content: '';
     background-color: var(--c-gray-1);
     width: 60%;
-    height: 5px;
+    height: 2px;
     position: absolute;
     transform: rotate(-45deg);
   }

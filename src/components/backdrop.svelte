@@ -57,7 +57,7 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    background-color: var(--c-white);
+    background-color: var(--c-black);
     visibility: hidden;
     transition-property: opacity, visibility;
     opacity: 0;
