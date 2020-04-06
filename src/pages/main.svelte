@@ -194,11 +194,11 @@ footer {
   display: flex;
   max-width: 300px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .socialLink {
-  height: 40px;
+  height: 30px;
   flex-grow: 1;
   display: block;
   background-repeat: no-repeat;
