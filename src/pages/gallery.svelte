@@ -140,7 +140,7 @@ nav {
   justify-content: center;
   height: 100px;
   padding: 0 var(--space-md);
-  z-index: 1;
+  z-index: 2;
 }
 
 @media(max-width: 1250px) {
