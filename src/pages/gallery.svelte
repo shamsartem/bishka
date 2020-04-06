@@ -340,6 +340,7 @@ nav {
   transition: opacity 0.3s;
   font-weight: 700;
   line-height: 29px;
+  pointer-events: none;
 }
 
 @media(max-width: 600px) {
