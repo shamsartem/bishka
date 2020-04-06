@@ -133,6 +133,10 @@ h1 {
   text-transform: uppercase;
 }
 
+.linkContainer:nth-child(2n) .linkTitle {
+  background-color: var(--c-yellow-darker);
+}
+
 @media(max-width: 800px) {
   .linkTitle {
     font-size: 20px;

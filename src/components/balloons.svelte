@@ -162,13 +162,13 @@ onMount(() => {
 
 .text {
   text-transform: uppercase;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 700;
 }
 
 @media(min-width: 567px) {
   .text {
-    font-size: 40px;
+    font-size: 60px;
   }
 }
 

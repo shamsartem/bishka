@@ -287,6 +287,7 @@ nav {
 @media(min-width: 1350px) {
   .gallery {
     grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: calc(100vw / 4);
   }
 }
 
