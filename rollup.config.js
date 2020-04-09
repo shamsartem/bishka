@@ -39,6 +39,7 @@ export default {
       targets: [
         { src: 'public/fonts/*', dest: 'public/build/fonts' },
         { src: 'public/img/*', dest: 'public/build/img' },
+        { src: 'public/favicon/*', dest: 'public/build' },
       ],
     }),
     cssPlugin({ output: 'public/build/global.css' }),
