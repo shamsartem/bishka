@@ -6,7 +6,6 @@ import db from '../db';
 import Loader from '../components/loader.svelte';
 import Dialog from '../components/dialog.svelte';
 
-
 let pages;
 let page;
 let locationValue;
@@ -122,6 +121,7 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
             <img
               class="imageInDialog"
               class:fullscreen={image.fullscreen}
+              class:noDescription={!image.description}
               src={image.src} alt={image.description}
             >
           </figure>
@@ -374,6 +374,10 @@ nav {
   width: 100%;
   object-fit: contain;
   max-height: 100vh;
+}
+
+.imageInDialog.noDescription {
+  margin-top: 50px;
 }
 
 .imageInDialog.fullscreen {
