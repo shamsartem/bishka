@@ -41,14 +41,14 @@ onMount(() => {
 .balloons {
   --c-red-a: #ee0d0d;
   --c-orange-a: #f2702d;
-  --c-yellow-a: #ffe70b;
+  --c-yellow-a: var(--c-yellow);
   --c-green-a: #b4e043;
   --c-blue-a:	#33ccff;
   --c-purple-a: #6840da;
 
   --c-red-light-a: #f09c9c;
   --c-orange-light-a: #f9c5ab;
-  --c-yellow-light-a: #f9e6b0;
+  --c-yellow-light-a: hsl(var(--hue-yellow), 100%, 90%);
   --c-green-light-a: #fff8be;
   --c-blue-light-a:	#adeafe;
   --c-purple-light-a: #b197f8;
