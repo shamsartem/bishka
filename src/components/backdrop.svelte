@@ -64,7 +64,7 @@
   }
 
   div.visible {
-    opacity: 0.7;
+    opacity: 1;
     visibility: visible;
     pointer-events: initial;
   }

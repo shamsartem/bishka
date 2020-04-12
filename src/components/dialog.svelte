@@ -99,13 +99,13 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--c-yellow);
+    background-color: var(--c-black);
     z-index: 1;
   }
 
   .closeButton::before {
     content: '';
-    background-color: var(--c-gray-1);
+    background-color: var(--c-yellow);
     width: 60%;
     height: 2px;
     position: absolute;
@@ -114,7 +114,7 @@
 
   .closeButton::after {
     content: '';
-    background-color: var(--c-gray-1);
+    background-color: var(--c-yellow);
     width: 60%;
     height: 2px;
     position: absolute;
