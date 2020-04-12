@@ -78,11 +78,11 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
       </div>
     </div>
   </nav>
-  <div class="gallery-container">
+  <div>
     <ul class="gallery">
       {#each page.images as image}
         <li
-          class="image-container"
+          class="imageContainer"
         >
           <figure class="figureInList">
             <img
@@ -99,7 +99,7 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
           </figure>
           <button
             aria-hidden="true"
-            class="open-image-button"
+            class="openImageButton"
             on:click={showDialog(image)}
           >
           </button>
@@ -108,21 +108,22 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
     </ul>
   </div>
   <Dialog bind:visible={dialogIsVisible} fullscreen>
-    <ul class="galleryInDialog">
+    <ul>
       {#each page.images as image}
         <li>
-          <figure class="figureInDialog">
-            <img
-              class="imageInDialog"
-              src={image.src} alt={image.description}
-            >
+          <figure>
             {#if image.description}
               <figcaption class="figcaptionInDialog">
-                <span class="figcaptionInDialogText">
+                <span>
                   {image.description}
                 </span>
               </figcaption>
             {/if}
+            <img
+              class="imageInDialog"
+              class:fullscreen={image.fullscreen}
+              src={image.src} alt={image.description}
+            >
           </figure>
         </li>
       {/each}
@@ -294,11 +295,11 @@ nav {
   }
 }
 
-.image-container {
+.imageContainer {
   position: relative;
 }
 
-.image-container::after {
+.imageContainer::after {
   content: '';
   display: block;
   position: absolute;
@@ -312,7 +313,12 @@ nav {
   pointer-events: none;
 }
 
-.open-image-button {
+.imageContainer:hover::after,
+.imageContainer:focus-within::after {
+  opacity: 0.3;
+}
+
+.openImageButton {
   position: absolute;
   top: 0;
   left: 0;
@@ -359,29 +365,26 @@ nav {
   background-color: var(--c-black);
 }
 
-.image-container:hover .figcaptionInList,
-.image-container:focus-within .figcaptionInList {
+.imageContainer:hover .figcaptionInList,
+.imageContainer:focus-within .figcaptionInList {
   opacity: 1;
-}
-
-.image-container:hover::after,
-.image-container:focus-within::after {
-  opacity: 0.3;
-}
-
-.galleryInDialog {
-  display: flex;
-  flex-direction: column;
 }
 
 .imageInDialog {
   width: 100%;
+  object-fit: contain;
+  max-height: 100vh;
+}
+
+.imageInDialog.fullscreen {
+  max-height: unset;
 }
 
 .figcaptionInDialog {
   background-color: var(--c-black);
-  padding: 10px;
+  padding: 20px;
   color: var(--c-yellow);
+  font-size: 18px;
 }
 </style>
 

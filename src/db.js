@@ -5,7 +5,9 @@ export default new Promise((resolve) => {
     callback: (data) => resolve({
       pages: data.pages.elements.map((page) => ({
         ...page,
-        images: data.images.elements.filter((image) => image.page === page.page),
+        images: data.images.elements
+          .filter((image) => image.page === page.page)
+          .map((i) => ({ ...i, description: i.description.trim() })),
       })),
       contact: data.contact.elements,
     }),
