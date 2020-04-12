@@ -87,7 +87,7 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
           <figure class="figureInList">
             <img
               class="imageInList"
-              src={image.src} alt={image.description}
+              src={image.previewSrc || image.src} alt={image.description}
             >
             {#if image.description}
               <figcaption class="figcaptionInList">

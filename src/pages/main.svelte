@@ -17,15 +17,15 @@ import Loader from '../components/loader.svelte';
 {:then db}
   {#each db.pages as {page, slug, images}}
     <div class="linkContainer">
-      {#each images.filter((i) => i.preview).slice(0, 3) as image}
-        <div class="imagePreviewContainer">
-          <img class="imagePreview" src={image.src} alt={image.description} aria-hidden="true">
+      {#each images.filter((i) => i.featured).slice(0, 3) as image}
+        <div class="imageFeaturedContainer">
+          <img class="imageFeatured" src={image.previewSrc || image.src} alt={image.description} aria-hidden="true">
         </div>
       {/each}
       <div aria-hidden="true" class="linkTitle"><div>{page}</div></div>
-      {#each images.filter((i) => i.preview).slice(3, 6) as image}
-        <div class="imagePreviewContainer">
-          <img class="imagePreview" src={image.src} alt={image.description} aria-hidden="true">
+      {#each images.filter((i) => i.featured).slice(3, 6) as image}
+        <div class="imageFeaturedContainer">
+          <img class="imageFeatured" src={image.previewSrc || image.src} alt={image.description} aria-hidden="true">
         </div>
       {/each}
       <a href="#/{slug}" class="link">
@@ -155,14 +155,14 @@ h1 {
   color: var(--c-yellow);
 }
 
-.imagePreview {
+.imageFeatured {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 @media(max-width: 600px) {
-  .imagePreview {
+  .imageFeatured {
     display: none;
   }
 }
