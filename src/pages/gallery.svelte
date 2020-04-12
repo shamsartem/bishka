@@ -5,12 +5,23 @@ import active from 'svelte-spa-router/active';
 import db from '../db';
 import Loader from '../components/loader.svelte';
 import Dialog from '../components/dialog.svelte';
+import VkIcon from '../icons/vk.svelte';
+import TelegramIcon from '../icons/telegram.svelte';
+import InstagramIcon from '../icons/instagram.svelte';
+import PinIcon from '../icons/pin.svelte';
 
+const icons = {
+  vk: VkIcon,
+  telegram: TelegramIcon,
+  instagram: InstagramIcon,
+};
+
+let social = [];
+let email;
 let pages;
 let page;
 let locationValue;
 let imageInDialog = null;
-let contact = [];
 
 let dialogIsVisible = false;
 $: if (!dialogIsVisible) {
@@ -25,8 +36,9 @@ async function showDialog(image) {
 }
 
 db.then((data) => {
+  social = data.contact.filter((c) => !['email', 'address'].includes(c.type));
+  email = data.contact.find((c) => c.type === 'email');
   pages = data.pages;
-  contact = data.contact;
 });
 
 const unsubscribe = location.subscribe((value) => {
@@ -61,20 +73,17 @@ $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
       </div>
       <div class="contactContainer">
         <div class="social">
-          {#each contact as c}
-            {#if c.type !== 'email'}
-              <a href={c.link} class="socialLink" style="background-image: url(build/img/{c.type}.svg)">
-                <span class="visuallyHidden">{c.text}</span>
-              </a>
-            {/if}
+          {#each social as s}
+            <a href={s.link} class="socialLink">
+              <span class="visuallyHidden">{s.text}</span>
+              <svelte:component this={icons[s.type]}/>
+            </a>
           {/each}
         </div>
         <div class="email">
-          {#each contact as c}
-            {#if c.type === 'email'}
-              <a href={c.link} class="emailLink">{c.text}</a>
-            {/if}
-          {/each}
+          {#if email }
+            <a href={email.link} class="emailLink">{email.text}</a>
+          {/if}
         </div>
       </div>
     </div>
@@ -244,6 +253,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-end;
 }
 
 @media(max-width: 1250px) {
@@ -254,19 +264,20 @@ nav {
 
 .social {
   display: flex;
-  max-width: 300px;
+  max-width: 180px;
   width: 100%;
   margin-bottom: 10px;
+  color: var(--c-white);
 }
 
 .socialLink {
   height: 30px;
-  flex-grow: 1;
-  display: block;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  filter: invert(1);
+  width: 30px;
+  margin-left: 30px;
+  display: flex;
+  justify-content: center;
+  color: var(--c-white);
+  transition: color var(--t);
 }
 
 .email {
@@ -276,6 +287,11 @@ nav {
 
 .emailLink {
   text-align: center;
+  transition: color var(--t);
+}
+
+.socialLink:hover, .emailLink:hover {
+  color: var(--c-yellow);
 }
 
 .gallery {

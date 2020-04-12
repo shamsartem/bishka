@@ -16,8 +16,8 @@
   --lh-md: 1.6667;
 
   /* Colors */
-  --c-yellow: #ffe70b;
-  --c-yellow-darker: #FFD80B;
+  --hue-yellow: 54;
+  --c-yellow: hsl(var(--hue-yellow), 100%, 52%);
   --c-black: #000;
   --c-gray-1: #1a1a1e;
   --c-gray-3: #36363b;
