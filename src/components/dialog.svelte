@@ -57,7 +57,9 @@
       use:clickoutside
       on:clickoutside={hideDialog}
     >
-      <button class="closeButton" on:click={hideDialog}></button>
+      <button class="closeButton" on:click={hideDialog}>
+        <span class="visuallyHidden">Close dialog</span>
+      </button>
       <slot></slot>
     </div>
   </div>
