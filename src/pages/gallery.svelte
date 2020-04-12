@@ -22,7 +22,7 @@ async function showDialog(image) {
   dialogIsVisible = true;
   imageInDialog = image;
   await tick();
-  Array.from(document.querySelectorAll('.imageInDialog')).find((i) => i.src === imageInDialog.src).scrollIntoView();
+  Array.from(document.querySelectorAll('.imageInDialog')).find((i) => i.src === imageInDialog.src).parentElement.scrollIntoView();
 }
 
 db.then((data) => {
@@ -384,7 +384,7 @@ nav {
   background-color: var(--c-black);
   padding: 20px;
   color: var(--c-yellow);
-  font-size: 18px;
+  font-size: 13px;
 }
 </style>
 
