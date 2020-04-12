@@ -31,7 +31,9 @@ db.then((data) => {
 
 const unsubscribe = location.subscribe((value) => {
   locationValue = value;
+  dialogIsVisible = false;
 });
+
 onDestroy(unsubscribe);
 
 $: page = pages && pages.find((p) => locationValue === `/${p.slug}`);
