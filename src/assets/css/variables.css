@@ -24,8 +24,8 @@
   --c-gray-5: #818193;
   --c-gray-7: #bbbbc7;
   --c-gray-9: #dbdbe7;
-  --c-white: #ffffff;
-  --c-red: #ff0000;
+  --c-white: #fff;
+  --c-red: #f00;
 
   /* Border radius */
   --bdrs-default: 5px;

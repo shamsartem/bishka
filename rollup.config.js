@@ -1,33 +1,52 @@
-import svelte from 'rollup-plugin-svelte';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
-import cssPlugin from 'rollup-plugin-css-only';
-import copy from 'rollup-plugin-copy';
+import svelte from 'rollup-plugin-svelte'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import livereload from 'rollup-plugin-livereload'
+import { terser } from 'rollup-plugin-terser'
+import sveltePreprocess from 'svelte-preprocess'
+import typescript from '@rollup/plugin-typescript'
+import postcss from 'rollup-plugin-postcss'
+import postcssImport from 'postcss-import'
+import postcssPresetEnv from 'postcss-preset-env'
+import postcssNested from 'postcss-nested'
+import dsv from '@rollup/plugin-dsv'
+import copy from 'rollup-plugin-copy'
 
-const production = !process.env.ROLLUP_WATCH;
+const postcssPlugins = [
+  postcssImport(),
+  postcssPresetEnv({ stage: 0 }),
+  postcssNested(),
+]
+
+const production = !process.env.ROLLUP_WATCH
 
 function serve() {
-  let started = false;
+  let server
+
+  function toExit() {
+    if (server) server.kill(0)
+  }
 
   return {
     writeBundle() {
-      if (!started) {
-        started = true;
-
-        // eslint-disable-next-line global-require
-        require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+      if (server) return
+      server = require('child_process').spawn(
+        'npm',
+        ['run', 'start', '--', '--dev'],
+        {
           stdio: ['ignore', 'inherit', 'inherit'],
           shell: true,
-        });
-      }
+        },
+      )
+
+      process.on('SIGTERM', toExit)
+      process.on('exit', toExit)
     },
-  };
+  }
 }
 
 export default {
-  input: 'src/main.js',
+  input: 'src/main.ts',
   output: {
     sourcemap: true,
     format: 'iife',
@@ -42,15 +61,24 @@ export default {
         { src: 'public/favicon/*', dest: 'public/build' },
       ],
     }),
-    cssPlugin({ output: 'public/build/global.css' }),
+    dsv(),
+    postcss({
+      plugins: postcssPlugins,
+    }),
     svelte({
       // enable run-time checks when not in production
       dev: !production,
       // we'll extract any component CSS out into
       // a separate file - better for performance
       css: (css) => {
-        css.write('public/build/bundle.css');
+        css.write('public/build/bundle.css')
       },
+      preprocess: sveltePreprocess({
+        sourceMap: !production,
+        postcss: {
+          plugins: postcssPlugins,
+        },
+      }),
     }),
 
     // If you have external dependencies installed from
@@ -63,6 +91,7 @@ export default {
       dedupe: ['svelte'],
     }),
     commonjs(),
+    typescript({ sourceMap: !production }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
@@ -79,4 +108,4 @@ export default {
   watch: {
     clearScreen: false,
   },
-};
+}

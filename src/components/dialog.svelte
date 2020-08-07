@@ -1,125 +1,132 @@
-<script>
-  import { fade } from 'svelte/transition';
-  import createFocusTrap from 'focus-trap';
-  import portal from '../actions/portal';
-  import clickoutside from '../actions/clickoutside';
-  import backdropIsVisible from '../stores/backdrop-is-visible';
-  import { BACKDROP_TRANSITION_DURATION } from '../constants';
-
-  export let visible;
-  export let fullscreen;
-
-  let dialogEl;
-  let focusTrap;
-
-  function activateFocusTrap() {
-    focusTrap = createFocusTrap(dialogEl, {
-      onDeactivate() {
-        visible = false;
-      },
-    });
-    focusTrap.activate();
-  }
-
-  function deactivateFocusTrap() {
-    focusTrap.deactivate();
-  }
-
-  let firstTime = true;
-  $: if (firstTime) {
-    firstTime = false;
-  } else if (visible) {
-    backdropIsVisible.set(true);
-    setTimeout(() => {
-      activateFocusTrap();
-    });
-  } else {
-    deactivateFocusTrap();
-    backdropIsVisible.set(false);
-  }
-
-  function hideDialog() {
-    visible = false;
-  }
-</script>
-
 {#if visible}
   <div
     class="dialog"
     use:portal
-    transition:fade={{ duration: BACKDROP_TRANSITION_DURATION }}
-    bind:this={dialogEl}
-    on:keydown={(e) => e.keyCode === 27 && hideDialog()}
+    transition:fade="{{ duration: BACKDROP_TRANSITION_DURATION }}"
+    bind:this="{dialogEl}"
+    on:keydown="{handleKeyDown}"
   >
     <div
       class="dialogWrapper"
       class:fullscreen
       use:clickoutside
-      on:clickoutside={hideDialog}
+      on:clickoutside="{hideDialog}"
     >
-      <button class="closeButton" on:click={hideDialog}>
+      <button class="closeButton" on:click="{hideDialog}">
         <span class="visuallyHidden">Close dialog</span>
       </button>
-      <slot></slot>
+      <slot />
     </div>
   </div>
 {/if}
 
-<style>
+<script lang="typescript">
+  import { fade } from 'svelte/transition'
+  import createFocusTrap from 'focus-trap'
+  import portal from '../actions/portal'
+  import clickoutside from '../actions/clickoutside'
+  import backdropIsVisible from '../stores/backdrop-is-visible'
+  import { BACKDROP_TRANSITION_DURATION, KEY_ESC } from '../const'
+
+  export let visible
+  export let fullscreen
+
+  let dialogEl
+  let focusTrap
+
+  const activateFocusTrap = () => {
+    focusTrap = createFocusTrap(dialogEl, {
+      onDeactivate() {
+        visible = false
+      },
+    })
+    focusTrap.activate()
+  }
+
+  const deactivateFocusTrap = () => {
+    focusTrap.deactivate()
+  }
+
+  let firstTime = true
+  $: if (firstTime) {
+    firstTime = false
+  } else if (visible) {
+    backdropIsVisible.set(true)
+    setTimeout(() => {
+      activateFocusTrap()
+    })
+  } else {
+    deactivateFocusTrap()
+    backdropIsVisible.set(false)
+  }
+
+  const hideDialog = () => {
+    visible = false
+  }
+
+  const handleKeyDown = (
+    e: KeyboardEvent & {
+      target: EventTarget & HTMLDivElement
+    },
+  ) => {
+    e.keyCode === KEY_ESC && hideDialog()
+  }
+</script>
+
+<style lang="postcss">
   .dialog {
-    z-index: 200;
+    display: flex;
     position: fixed;
+    z-index: 200;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .dialogWrapper {
+    display: flex;
     position: relative;
+    flex-direction: column;
+    align-items: flex-end;
     max-width: 100%;
     margin: auto;
-  }
 
-  .dialogWrapper.fullscreen {
-    width: 100%;
+    &.fullscreen {
+      width: 100%;
+    }
   }
 
   .closeButton {
-    position: fixed;
     display: flex;
+    position: sticky;
+    z-index: 1;
+    top: 10px;
+    right: 20px;
     align-items: center;
     justify-content: center;
-    right: 20px;
-    top: 10px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background-color: var(--c-black);
-    z-index: 1;
-  }
 
-  .closeButton::before {
-    content: '';
-    background-color: var(--c-yellow);
-    width: 60%;
-    height: 2px;
-    position: absolute;
-    transform: rotate(45deg);
-  }
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 2px;
+      transform: rotate(45deg);
+      background-color: var(--c-yellow);
+    }
 
-  .closeButton::after {
-    content: '';
-    background-color: var(--c-yellow);
-    width: 60%;
-    height: 2px;
-    position: absolute;
-    transform: rotate(-45deg);
+    &::after {
+      transform: rotate(-45deg);
+    }
   }
 </style>

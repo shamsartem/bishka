@@ -1,53 +1,53 @@
-<script>
-  import backdropIsVisible from '../stores/backdrop-is-visible';
-  import { BACKDROP_TRANSITION_DURATION } from '../constants';
+<div
+  class:visible
+  style="transition-duration: {BACKDROP_TRANSITION_DURATION}ms;"
+></div>
 
-  let timeout;
-  let visible = false;
+<script lang="typescript">
+  import backdropIsVisible from '../stores/backdrop-is-visible'
+  import { BACKDROP_TRANSITION_DURATION } from '../const'
 
-  let firstTime = true;
+  let timeout
+  let visible = false
+
+  let firstTime = true
   $: if (firstTime) {
-    firstTime = false;
+    firstTime = false
   } else if ($backdropIsVisible && !document.body.style.marginTop) {
-    clearTimeout(timeout);
+    clearTimeout(timeout)
 
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const scrollY = window.scrollY || document.documentElement.scrollTop
 
-    visible = true;
+    visible = true
 
     if (window.innerWidth > document.documentElement.clientWidth) {
-      document.documentElement.classList.add('hasScrollbar');
+      document.documentElement.classList.add('hasScrollbar')
     }
 
-    document.body.style.marginTop = `-${scrollY}px`;
-    document.documentElement.classList.add('noScroll');
-    document.body.classList.add('overflowHidden');
+    document.body.style.marginTop = `-${scrollY}px`
+    document.documentElement.classList.add('noScroll')
+    document.body.classList.add('overflowHidden')
 
-    visible = true;
+    visible = true
   } else if (!$backdropIsVisible) {
     timeout = setTimeout(() => {
-      const newScrollTop = -document.body.style.marginTop.slice(0, -2);
+      const newScrollTop = -document.body.style.marginTop.slice(0, -2)
 
-      document.documentElement.classList.remove('hasScrollbar', 'noScroll');
-      document.body.classList.remove('overflowHidden');
-      document.body.style.marginTop = null;
-      window.scrollTo(null, newScrollTop);
+      document.documentElement.classList.remove('hasScrollbar', 'noScroll')
+      document.body.classList.remove('overflowHidden')
+      document.body.style.marginTop = null
+      window.scrollTo(null, newScrollTop)
 
       setTimeout(() => {
-        visible = false;
-      }, BACKDROP_TRANSITION_DURATION);
-    });
+        visible = false
+      }, BACKDROP_TRANSITION_DURATION)
+    })
   }
 </script>
 
-<div
-  class:visible
-  style="transition-duration:{BACKDROP_TRANSITION_DURATION}ms"
->
-</div>
-
-<style>
+<style lang="postcss">
   div {
+    visibility: hidden;
     position: fixed;
     z-index: 100;
     top: 0;
@@ -56,22 +56,21 @@
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
-    background-color: var(--c-black);
-    visibility: hidden;
     transition-property: opacity, visibility;
     opacity: 0;
+    background-color: var(--c-black);
+    pointer-events: none;
   }
 
   div.visible {
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
     pointer-events: initial;
   }
 
   :global(html.noScroll) {
-    overflow-y: hidden;
     height: 100%;
+    overflow-y: hidden;
   }
 
   :global(html.hasScrollbar) {

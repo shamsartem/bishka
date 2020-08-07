@@ -27,16 +27,16 @@ fieldset {
 }
 
 button {
-  border: none;
   width: auto;
   overflow: visible;
+  border: none;
   background-color: transparent;
-  line-height: inherit;
-  text-align: inherit;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
 }
 
 ul,
@@ -47,8 +47,8 @@ ol {
 input,
 textarea {
   font-family: inherit;
-  line-height: inherit;
   font-size: inherit;
+  line-height: inherit;
 }
 
 input[type='number'] {
@@ -75,11 +75,11 @@ select {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
+  text-decoration: none;
 }
 
 img {
