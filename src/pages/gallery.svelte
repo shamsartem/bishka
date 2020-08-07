@@ -31,32 +31,31 @@
     </div>
   </div>
 </nav>
-<div>
-  <ul class="gallery">
-    {#each page.images as image}
-      <li class="imageContainer">
-        <figure class="figureInList">
-          <img
-            class="imageInList"
-            src="{image.previewSrc || image.src}"
-            alt="{image.description}"
-            loading="lazy"
-          />
-          {#if image.description}
-            <figcaption class="figcaptionInList">
-              <span class="figcaptionInListText">{image.description}</span>
-            </figcaption>
-          {/if}
-        </figure>
-        <button
-          aria-hidden="true"
-          class="openImageButton"
-          on:click="{() => showDialog(image)}"
-        ></button>
-      </li>
-    {/each}
-  </ul>
-</div>
+
+<ul class="gallery">
+  {#each page.images as image}
+    <li class="imageContainer">
+      <figure class="figureInList">
+        <img
+          class="imageInList"
+          src="{image.previewSrc || image.src}"
+          alt="{image.description}"
+          loading="lazy"
+        />
+        {#if image.description}
+          <figcaption class="figcaptionInList">
+            <span class="figcaptionInListText">{image.description}</span>
+          </figcaption>
+        {/if}
+      </figure>
+      <button
+        aria-hidden="true"
+        class="openImageButton"
+        on:click="{() => showDialog(image)}"
+      ></button>
+    </li>
+  {/each}
+</ul>
 <Dialog bind:visible="{dialogIsVisible}" fullscreen>
   <ul>
     {#each page.images as image}
@@ -271,6 +270,7 @@
     grid-auto-rows: calc(100vw / 3);
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
+    overflow-x: hidden;
 
     @media (--t) {
       --header-height-half: 25px;
