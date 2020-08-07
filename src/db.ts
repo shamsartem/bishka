@@ -33,8 +33,7 @@ export type Contact = {
   type: 'instagram' | 'telegram' | 'vk' | 'email' | 'address'
 }
 
-export const images = imagesData.map((image, index) => ({
-  id: index,
+export const images = imagesData.map((image) => ({
   ...trimAllFields(image),
   src: `img/content/${image.src.trim()}`,
 }))

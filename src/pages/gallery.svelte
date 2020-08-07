@@ -51,13 +51,13 @@
       <button
         aria-hidden="true"
         class="openImageButton"
-        on:click="{() => showDialog(image)}"
+        on:click="{() => showDialog(image.src)}"
       ></button>
     </li>
   {/each}
 </ul>
 <Dialog bind:visible="{dialogIsVisible}" fullscreen>
-  <ul>
+  <ul bind:this="{imagesInDialogContainerEl}">
     {#each page.images as image}
       <li>
         <figure>
@@ -90,9 +90,12 @@
   import TelegramIcon from '../icons/telegram.svelte'
   import InstagramIcon from '../icons/instagram.svelte'
   import PinIcon from '../icons/pin.svelte'
+  import ResizeObserver from 'resize-observer-polyfill'
 
   export let slug
   export let route
+
+  let imagesInDialogContainerEl: HTMLElement
 
   const icons = {
     vk: VkIcon,
@@ -107,13 +110,25 @@
     imageInDialog = null
   }
 
-  const showDialog = async (image) => {
+  const showDialog = async (src: string) => {
     dialogIsVisible = true
-    imageInDialog = image
+
     await tick()
-    Array.from(document.querySelectorAll('.imageInDialog'))
-      .find((i: HTMLImageElement) => i.src === imageInDialog.src)
-      .parentElement.scrollIntoView()
+
+    const li = Array.from(
+      document.querySelectorAll('.imageInDialog'),
+    ).find((i: HTMLImageElement) => i.src.includes(src))?.parentElement
+      .parentElement
+
+    let observerTimeout
+
+    new ResizeObserver((mutations, observer) => {
+      li.scrollIntoView()
+      clearTimeout(observerTimeout)
+      observerTimeout = setTimeout(() => {
+        observer.disconnect()
+      }, 3000)
+    }).observe(imagesInDialogContainerEl)
   }
 
   $: page = pages.find(({ slug: s }) => slug === s)

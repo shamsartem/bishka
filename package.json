@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "focus-trap": "^5.1.0",
+    "resize-observer-polyfill": "^1.5.1",
     "sirv-cli": "^1.0.0"
   }
 }
