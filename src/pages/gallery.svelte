@@ -40,6 +40,7 @@
             class="imageInList"
             src="{image.previewSrc || image.src}"
             alt="{image.description}"
+            loading="lazy"
           />
           {#if image.description}
             <figcaption class="figcaptionInList">
@@ -72,6 +73,7 @@
             class:noDescription="{!image.description}"
             src="{image.src}"
             alt=""
+            loading="lazy"
           />
         </figure>
       </li>

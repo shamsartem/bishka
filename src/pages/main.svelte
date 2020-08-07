@@ -133,6 +133,10 @@
       flex: 1;
       margin-bottom: 0;
     }
+
+    @media (--t) {
+      grid-template-rows: 180px auto 180px;
+    }
   }
 
   .linkTitle {
