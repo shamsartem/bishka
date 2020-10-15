@@ -160,7 +160,7 @@
     font-weight: 700;
     text-transform: uppercase;
 
-    @media (--s) {
+    @media (--ml) {
       font-size: 60px;
     }
   }

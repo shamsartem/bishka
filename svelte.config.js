@@ -1,14 +1,13 @@
 const sveltePreprocess = require('svelte-preprocess')
-const postcssImport = require('postcss-import')
-const postcssPresetEnv = require('postcss-preset-env')
-const postcssNested = require('postcss-nested')
-
-const postcssPlugins = [postcssImport(), postcssPresetEnv(), postcssNested()]
+const fs = require('fs')
+const mediaQueries = fs
+  .readFileSync('./src/assets/css/media-queries.css')
+  .toString()
 
 module.exports = {
   preprocess: sveltePreprocess({
     postcss: {
-      plugins: postcssPlugins,
+      prependData: mediaQueries,
     },
   }),
 }

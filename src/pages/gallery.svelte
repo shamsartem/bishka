@@ -2,7 +2,9 @@
   <div class="navContainer">
     <div class="logoContainer">
       <img src="img/logo.svg" alt="logo" class="logo" />
-      <div aria-hidden="true" class="textUnderLogo">Gallery</div>
+      {#if $isDLResolution}
+        <div aria-hidden="true" class="textUnderLogo">Gallery</div>
+      {/if}
       <RouterLink to="/" cls="link">
         <span class="visuallyHidden">На главную</span>
       </RouterLink>
@@ -14,21 +16,23 @@
         </RouterLink>
       {/each}
     </div>
-    <div class="contactContainer">
-      <div class="social">
-        {#each social as s}
-          <a href="{s.link}" class="socialLink">
-            <span class="visuallyHidden">{s.text}</span>
-            <svelte:component this="{icons[s.type]}" />
-          </a>
-        {/each}
+    {#if $isDLResolution}
+      <div class="contactContainer">
+        <div class="social">
+          {#each social as s}
+            <a href="{s.link}" class="socialLink">
+              <span class="visuallyHidden">{s.text}</span>
+              <svelte:component this="{icons[s.type]}" />
+            </a>
+          {/each}
+        </div>
+        <div class="email">
+          {#if email}
+            <a href="{email.link}" class="emailLink">{email.text}</a>
+          {/if}
+        </div>
       </div>
-      <div class="email">
-        {#if email}
-          <a href="{email.link}" class="emailLink">{email.text}</a>
-        {/if}
-      </div>
-    </div>
+    {/if}
   </div>
 </nav>
 
@@ -57,7 +61,7 @@
   {/each}
 </ul>
 <Dialog bind:visible="{dialogIsVisible}" fullscreen>
-  <ul bind:this="{imagesInDialogContainerEl}">
+  <ul class="listInDialog" bind:this="{imagesInDialogContainerEl}">
     {#each page.images as image}
       <li>
         <figure>
@@ -83,17 +87,20 @@
 <script lang="typescript">
   import RouterLink from '@spaceavocado/svelte-router/component/link'
   import { router } from '@spaceavocado/svelte-router'
-  import { onDestroy, tick } from 'svelte'
+  import { tick } from 'svelte'
   import { pages, email, social } from '../db'
   import Dialog from '../components/dialog.svelte'
   import VkIcon from '../icons/vk.svelte'
   import TelegramIcon from '../icons/telegram.svelte'
   import InstagramIcon from '../icons/instagram.svelte'
-  import PinIcon from '../icons/pin.svelte'
   import ResizeObserver from 'resize-observer-polyfill'
+  import { isDLResolution } from '../stores/resolution'
 
   export let slug
   export let route
+  route
+
+  $router.onNavigationChanged(() => window.scrollTo(0, 0))
 
   let imagesInDialogContainerEl: HTMLElement
 
@@ -103,12 +110,7 @@
     instagram: InstagramIcon,
   }
 
-  let imageInDialog = null
-
   let dialogIsVisible = false
-  $: if (!dialogIsVisible) {
-    imageInDialog = null
-  }
 
   const showDialog = async (src: string) => {
     dialogIsVisible = true
@@ -122,7 +124,7 @@
 
     let observerTimeout
 
-    new ResizeObserver((mutations, observer) => {
+    new ResizeObserver((_mutations, observer) => {
       li.scrollIntoView()
       clearTimeout(observerTimeout)
       observerTimeout = setTimeout(() => {
@@ -146,7 +148,7 @@
     padding: 0 var(--space-md);
     background-color: var(--c-black);
 
-    @media (--xl) {
+    @media (--dl) {
       height: 100px;
     }
   }
@@ -160,7 +162,7 @@
     max-width: 120px;
     padding: 10px 0;
 
-    @media (--xl) {
+    @media (--dl) {
       max-width: unset;
     }
   }
@@ -178,10 +180,7 @@
   }
 
   .textUnderLogo {
-    display: none;
-
-    @media (--xl) {
-      display: block;
+    @media (--dl) {
       font-size: 20px;
       font-weight: 700;
       text-transform: uppercase;
@@ -202,7 +201,7 @@
     width: 100%;
     padding-left: 20px;
 
-    @media (--xl) {
+    @media (--dl) {
       width: auto;
       padding-right: 20px;
     }
@@ -217,12 +216,12 @@
     font-size: 13px;
     font-weight: 700;
 
-    @media (--s) {
+    @media (--ml) {
       padding: 10px;
       font-size: 15px;
     }
 
-    @media (--xl) {
+    @media (--dl) {
       padding: 0 50px;
       font-size: 24px;
     }
@@ -234,9 +233,7 @@
   }
 
   .contactContainer {
-    display: none;
-
-    @media (--xl) {
+    @media (--dl) {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -294,7 +291,7 @@
       gap: 0;
     }
 
-    @media (--xl) {
+    @media (--dl) {
       --header-height-half: 50px;
 
       grid-template-columns: repeat(4, 1fr);
@@ -358,7 +355,7 @@
     line-height: 16px;
     pointer-events: none;
 
-    @media (--s) {
+    @media (--ml) {
       bottom: 20px;
       left: 20px;
       font-size: 24px;
@@ -375,10 +372,17 @@
     background-color: var(--c-black);
   }
 
+  .listInDialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
   .imageInDialog {
     width: 100%;
     object-fit: contain;
-    max-height: 100vh;
+    max-height: min(100vh, 1080px);
   }
 
   .imageInDialog.noDescription {

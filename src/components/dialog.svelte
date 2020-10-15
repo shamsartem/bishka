@@ -6,12 +6,7 @@
     bind:this="{dialogEl}"
     on:keydown="{handleKeyDown}"
   >
-    <div
-      class="dialogWrapper"
-      class:fullscreen
-      use:clickoutside
-      on:clickoutside="{hideDialog}"
-    >
+    <div class="dialogWrapper" class:fullscreen use:clickoutside="{hideDialog}">
       <button class="closeButton" on:click="{hideDialog}">
         <span class="visuallyHidden">Close dialog</span>
       </button>
@@ -65,11 +60,9 @@
   }
 
   const handleKeyDown = (
-    e: KeyboardEvent & {
-      target: EventTarget & HTMLDivElement
-    },
+    e: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement },
   ) => {
-    e.keyCode === KEY_ESC && hideDialog()
+    e.code === KEY_ESC && hideDialog()
   }
 </script>
 

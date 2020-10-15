@@ -7,29 +7,33 @@
 <div class="linksContainer">
   {#each pages as { page, slug, images }}
     <div class="linkContainer">
-      {#each images.filter((i) => i.featured).slice(0, 3) as image}
-        <div class="imageFeaturedContainer">
-          <img
-            class="imageFeatured"
-            src="{image.previewSrc || image.src}"
-            alt="{image.description}"
-            aria-hidden="true"
-          />
-        </div>
-      {/each}
+      {#if $isMLResolution}
+        {#each images.filter((i) => i.featured).slice(0, 3) as image}
+          <div class="imageFeaturedContainer">
+            <img
+              class="imageFeatured"
+              src="{image.previewSrc || image.src}"
+              alt="{image.description}"
+              aria-hidden="true"
+            />
+          </div>
+        {/each}
+      {/if}
       <div aria-hidden="true" class="linkTitle">
         <div>{page}</div>
       </div>
-      {#each images.filter((i) => i.featured).slice(3, 6) as image}
-        <div class="imageFeaturedContainer">
-          <img
-            class="imageFeatured"
-            src="{image.previewSrc || image.src}"
-            alt="{image.description}"
-            aria-hidden="true"
-          />
-        </div>
-      {/each}
+      {#if $isMLResolution}
+        {#each images.filter((i) => i.featured).slice(3, 6) as image}
+          <div class="imageFeaturedContainer">
+            <img
+              class="imageFeatured"
+              src="{image.previewSrc || image.src}"
+              alt="{image.description}"
+              aria-hidden="true"
+            />
+          </div>
+        {/each}
+      {/if}
       <RouterLink to="/{slug}" cls="link">
         <span class="visuallyHidden">{page}</span>
       </RouterLink>
@@ -38,14 +42,16 @@
 </div>
 <footer>
   {#if address || email || social.length}
-    <div class="address">
-      {#if address}
-        <a href="{address.link}" class="addressLink">
-          <PinIcon />
-          <span class="addressLinkText">{address.text}</span>
-        </a>
-      {/if}
-    </div>
+    {#if $isMLResolution}
+      <div class="address">
+        {#if address}
+          <a href="{address.link}" class="addressLink">
+            <PinIcon />
+            <span class="addressLinkText">{address.text}</span>
+          </a>
+        {/if}
+      </div>
+    {/if}
     <div class="social">
       {#each social as { type, text, link }}
         <a href="{link}" class="socialLink">
@@ -70,8 +76,10 @@
   import TelegramIcon from '../icons/telegram.svelte'
   import InstagramIcon from '../icons/instagram.svelte'
   import PinIcon from '../icons/pin.svelte'
+  import { isMLResolution } from '../stores/resolution'
 
   export let route
+  route
 
   const icons = {
     vk: VkIcon,
@@ -112,7 +120,7 @@
     margin-top: 30px;
     padding: 0 var(--space-md);
 
-    @media (--s) {
+    @media (--ml) {
       flex-direction: row;
       margin-top: 0;
       margin-bottom: 20px;
@@ -126,7 +134,7 @@
     width: 100%;
     margin-bottom: 20px;
 
-    @media (--s) {
+    @media (--ml) {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: 200px auto 200px;
@@ -153,17 +161,17 @@
     font-weight: 700;
     text-transform: uppercase;
 
-    @media (--s) {
+    @media (--ml) {
       border-radius: 0;
       font-size: 20px;
     }
 
-    @media (--l) {
+    @media (--d) {
       font-size: 48px;
     }
 
     .linkContainer:nth-child(2n) & {
-      @media (--s) {
+      @media (--ml) {
         background-color: hsl(var(--hue-yellow), 100%, 47%);
       }
     }
@@ -175,10 +183,7 @@
   }
 
   .imageFeatured {
-    display: none;
-
-    @media (--s) {
-      display: block;
+    @media (--ml) {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -204,7 +209,7 @@
     padding: 0 var(--space-md);
     font-size: 18px;
 
-    @media (--s) {
+    @media (--ml) {
       flex-direction: row;
       justify-content: space-between;
       padding-right: var(--space-md);
@@ -213,14 +218,12 @@
   }
 
   .addressLink {
-    display: none;
-    align-items: center;
-    max-height: 23px;
-    transition: color var(--t);
-    white-space: nowrap;
-
-    @media (--s) {
+    @media (--ml) {
       display: flex;
+      align-items: center;
+      max-height: 23px;
+      transition: color var(--t);
+      white-space: nowrap;
     }
   }
 
@@ -234,7 +237,7 @@
     max-width: 300px;
     margin-bottom: 15px;
 
-    @media (--s) {
+    @media (--ml) {
       max-width: 200px;
       margin-bottom: 0;
     }
@@ -246,7 +249,7 @@
     justify-content: center;
     height: 50px;
 
-    @media (--s) {
+    @media (--ml) {
       height: 30px;
     }
   }
@@ -260,7 +263,7 @@
     margin-bottom: 30px;
     text-align: center;
 
-    @media (--s) {
+    @media (--ml) {
       margin-bottom: 0;
     }
   }

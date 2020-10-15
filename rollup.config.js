@@ -6,17 +6,15 @@ import { terser } from 'rollup-plugin-terser'
 import sveltePreprocess from 'svelte-preprocess'
 import typescript from '@rollup/plugin-typescript'
 import postcss from 'rollup-plugin-postcss'
-import postcssImport from 'postcss-import'
-import postcssPresetEnv from 'postcss-preset-env'
-import postcssNested from 'postcss-nested'
 import dsv from '@rollup/plugin-dsv'
 import copy from 'rollup-plugin-copy'
+import fs from 'fs'
 
-const postcssPlugins = [
-  postcssImport(),
-  postcssPresetEnv({ stage: 0 }),
-  postcssNested(),
-]
+const postcssConfig = require('./postcss.config')
+
+const mediaQueries = fs
+  .readFileSync('./src/assets/css/media-queries.css')
+  .toString()
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -62,9 +60,7 @@ export default {
       ],
     }),
     dsv(),
-    postcss({
-      plugins: postcssPlugins,
-    }),
+    postcss(postcssConfig),
     svelte({
       // enable run-time checks when not in production
       dev: !production,
@@ -76,7 +72,8 @@ export default {
       preprocess: sveltePreprocess({
         sourceMap: !production,
         postcss: {
-          plugins: postcssPlugins,
+          ...postcssConfig,
+          prependData: mediaQueries,
         },
       }),
     }),

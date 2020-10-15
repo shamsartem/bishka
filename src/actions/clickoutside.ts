@@ -1,4 +1,4 @@
-const clickOutside = (node: HTMLElement) => {
+const clickOutside = (node: HTMLElement, handler: () => void) => {
   let firstClick = true
   let clickedOnNode = false
 
@@ -13,7 +13,7 @@ const clickOutside = (node: HTMLElement) => {
       return
     }
 
-    node.dispatchEvent(new CustomEvent('clickoutside'))
+    handler()
   }
 
   document.body.addEventListener('click', handleBodyClick)

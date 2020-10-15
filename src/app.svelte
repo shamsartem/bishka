@@ -27,11 +27,6 @@
 </script>
 
 <style lang="postcss">
-  @custom-media --s (width >= 576px);
-  @custom-media --t (width >= 768px);
-  @custom-media --l (width >= 992px);
-  @custom-media --xl (width >= 1200px);
-
   .wrapper {
     display: flex;
     position: relative;
