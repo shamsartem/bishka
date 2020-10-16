@@ -15,9 +15,9 @@
   </div>
 {/if}
 
-<script lang="typescript">
+<script lang="ts">
   import { fade } from 'svelte/transition'
-  import createFocusTrap from 'focus-trap'
+  import { createFocusTrap } from 'focus-trap'
   import portal from '../actions/portal'
   import clickoutside from '../actions/clickoutside'
   import backdropIsVisible from '../stores/backdrop-is-visible'

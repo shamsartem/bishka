@@ -3,7 +3,7 @@
   style="transition-duration: {BACKDROP_TRANSITION_DURATION}ms;"
 ></div>
 
-<script lang="typescript">
+<script lang="ts">
   import backdropIsVisible from '../stores/backdrop-is-visible'
   import { BACKDROP_TRANSITION_DURATION } from '../const'
 

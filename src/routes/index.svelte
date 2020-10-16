@@ -34,9 +34,9 @@
           </div>
         {/each}
       {/if}
-      <RouterLink to="/{slug}" cls="link">
+      <a href="/{slug}" class="navLink">
         <span class="visuallyHidden">{page}</span>
-      </RouterLink>
+      </a>
     </div>
   {/each}
 </div>
@@ -54,22 +54,19 @@
     {/if}
     <div class="social">
       {#each social as { type, text, link }}
-        <a href="{link}" class="socialLink">
+        <a href="{link}" class="socialLink" rel="external" target="_blank">
           <span class="visuallyHidden">{text}</span>
           <svelte:component this="{icons[type]}" />
         </a>
       {/each}
     </div>
     <div class="email">
-      {#if email}
-        <a href="{email.link}" class="emailLink">{email.text}</a>
-      {/if}
+      {#if email}<a href="{email.link}" class="emailLink">{email.text}</a>{/if}
     </div>
   {/if}
 </footer>
 
-<script lang="typescript">
-  import RouterLink from '@spaceavocado/svelte-router/component/link'
+<script lang="ts">
   import Balloones from '../components/balloons.svelte'
   import { email, social, address, pages } from '../db'
   import VkIcon from '../icons/vk.svelte'
@@ -77,9 +74,6 @@
   import InstagramIcon from '../icons/instagram.svelte'
   import PinIcon from '../icons/pin.svelte'
   import { isMLResolution } from '../stores/resolution'
-
-  export let route
-  route
 
   const icons = {
     vk: VkIcon,
@@ -190,7 +184,7 @@
     }
   }
 
-  .linkContainer > :global(.link) {
+  .navLink {
     position: absolute;
     top: 0;
     left: 0;

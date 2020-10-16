@@ -1,108 +1,149 @@
 import svelte from 'rollup-plugin-svelte'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import sveltePreprocess from 'svelte-preprocess'
 import typescript from '@rollup/plugin-typescript'
-import postcss from 'rollup-plugin-postcss'
 import dsv from '@rollup/plugin-dsv'
-import copy from 'rollup-plugin-copy'
 import fs from 'fs'
+import path from 'path'
+import replace from '@rollup/plugin-replace'
+import url from '@rollup/plugin-url'
+import babel from '@rollup/plugin-babel'
+import config from 'sapper/config/rollup.js'
+import pkg from './package.json'
 
-const postcssConfig = require('./postcss.config')
-
-const mediaQueries = fs
-  .readFileSync('./src/assets/css/media-queries.css')
+const stylesToPrepend = fs
+  .readFileSync('./src/common-styles/styles-to-prepend.css')
   .toString()
 
-const production = !process.env.ROLLUP_WATCH
+const preprocess = sveltePreprocess({
+  postcss: {
+    prependData: stylesToPrepend,
+  },
+})
 
-function serve() {
-  let server
+const mode = process.env.NODE_ENV
+const dev = mode === 'development'
+const legacy = !!process.env.SAPPER_LEGACY_BUILD
 
-  function toExit() {
-    if (server) server.kill(0)
-  }
-
-  return {
-    writeBundle() {
-      if (server) return
-      server = require('child_process').spawn(
-        'npm',
-        ['run', 'start', '--', '--dev'],
-        {
-          stdio: ['ignore', 'inherit', 'inherit'],
-          shell: true,
-        },
-      )
-
-      process.on('SIGTERM', toExit)
-      process.on('exit', toExit)
-    },
-  }
-}
+const onwarn = (warning, onwarn) =>
+  (warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
+  (warning.code === 'CIRCULAR_DEPENDENCY' &&
+    /[/\\]@sapper[/\\]/.test(warning.message)) ||
+  warning.code === 'THIS_IS_UNDEFINED' ||
+  onwarn(warning)
 
 export default {
-  input: 'src/main.ts',
-  output: {
-    sourcemap: true,
-    format: 'iife',
-    name: 'app',
-    file: 'public/build/bundle.js',
-  },
-  plugins: [
-    copy({
-      targets: [
-        { src: 'public/fonts/*', dest: 'public/build/fonts' },
-        { src: 'public/img/*', dest: 'public/build/img' },
-        { src: 'public/favicon/*', dest: 'public/build' },
-      ],
-    }),
-    dsv(),
-    postcss(postcssConfig),
-    svelte({
-      // enable run-time checks when not in production
-      dev: !production,
-      // we'll extract any component CSS out into
-      // a separate file - better for performance
-      css: (css) => {
-        css.write('public/build/bundle.css')
-      },
-      preprocess: sveltePreprocess({
-        sourceMap: !production,
-        postcss: {
-          ...postcssConfig,
-          prependData: mediaQueries,
-        },
+  client: {
+    input: config.client.input().replace(/\.js$/, '.ts'),
+    output: config.client.output(),
+    plugins: [
+      dsv(),
+      replace({
+        'process.browser': true,
+        'process.env.NODE_ENV': JSON.stringify(mode),
       }),
-    }),
+      svelte({
+        dev,
+        hydratable: true,
+        preprocess,
+        emitCss: true,
+      }),
+      url({
+        sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
+        publicPath: '/client/',
+      }),
+      resolve({
+        browser: true,
+        dedupe: ['svelte'],
+      }),
+      commonjs(),
+      typescript({ sourceMap: dev }),
 
-    // If you have external dependencies installed from
-    // npm, you'll most likely need these plugins. In
-    // some cases you'll need additional configuration -
-    // consult the documentation for details:
-    // https://github.com/rollup/plugins/tree/master/packages/commonjs
-    resolve({
-      browser: true,
-      dedupe: ['svelte'],
-    }),
-    commonjs(),
-    typescript({ sourceMap: !production }),
+      legacy &&
+        babel({
+          extensions: ['.js', '.mjs', '.html', '.svelte'],
+          babelHelpers: 'runtime',
+          exclude: ['node_modules/@babel/**'],
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: '> 0.25%, not dead',
+              },
+            ],
+          ],
+          plugins: [
+            '@babel/plugin-syntax-dynamic-import',
+            [
+              '@babel/plugin-transform-runtime',
+              {
+                useESModules: true,
+              },
+            ],
+          ],
+        }),
 
-    // In dev mode, call `npm run start` once
-    // the bundle has been generated
-    !production && serve(),
+      !dev &&
+        terser({
+          module: true,
+        }),
+    ],
 
-    // Watch the `public` directory and refresh the
-    // browser on changes when not in production
-    !production && livereload('public'),
+    preserveEntrySignatures: false,
+    onwarn,
+  },
 
-    // If we're building for production (npm run build
-    // instead of npm run dev), minify
-    production && terser(),
-  ],
-  watch: {
-    clearScreen: false,
+  server: {
+    input: { server: config.server.input().server.replace(/\.js$/, '.ts') },
+    output: config.server.output(),
+    plugins: [
+      replace({
+        'process.browser': false,
+        'process.env.NODE_ENV': JSON.stringify(mode),
+      }),
+      dsv(),
+      svelte({
+        generate: 'ssr',
+        hydratable: true,
+        preprocess,
+        dev,
+      }),
+      url({
+        sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
+        publicPath: '/client/',
+        emitFiles: false, // already emitted by client build
+      }),
+      resolve({
+        dedupe: ['svelte'],
+      }),
+      commonjs(),
+      typescript({ sourceMap: dev }),
+    ],
+    external: Object.keys(pkg.dependencies).concat(
+      require('module').builtinModules,
+    ),
+
+    preserveEntrySignatures: 'strict',
+    onwarn,
+  },
+
+  serviceworker: {
+    input: config.serviceworker.input().replace(/\.js$/, '.ts'),
+    output: config.serviceworker.output(),
+    plugins: [
+      resolve(),
+      replace({
+        'process.browser': true,
+        'process.env.NODE_ENV': JSON.stringify(mode),
+      }),
+      commonjs(),
+      typescript({ sourceMap: dev }),
+      !dev && terser(),
+    ],
+
+    preserveEntrySignatures: false,
+    onwarn,
   },
 }

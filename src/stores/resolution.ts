@@ -1,10 +1,6 @@
-import { derived, readable } from 'svelte/store'
+import { derived, writable } from 'svelte/store'
 
-export const windowInnerWidth = readable(0, (set) => {
-  const handleWindowResize = () => set(window.innerWidth)
-  handleWindowResize()
-  window.addEventListener('resize', handleWindowResize)
-})
+export const windowInnerWidth = writable(0)
 
 export const isMLResolution = derived(
   windowInnerWidth,

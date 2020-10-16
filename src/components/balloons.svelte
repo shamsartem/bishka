@@ -6,7 +6,7 @@
   {/each}
 </div>
 
-<script lang="typescript">
+<script lang="ts">
   import { onMount } from 'svelte'
 
   let time = new Date()

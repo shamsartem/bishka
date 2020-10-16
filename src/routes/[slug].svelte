@@ -5,22 +5,32 @@
       {#if $isDLResolution}
         <div aria-hidden="true" class="textUnderLogo">Gallery</div>
       {/if}
-      <RouterLink to="/" cls="link">
+      <a href="/" class="logoLink">
         <span class="visuallyHidden">На главную</span>
-      </RouterLink>
+      </a>
     </div>
     <div class="linksContainer">
-      {#each pages as { page, slug }}
-        <RouterLink to="/{slug}" cls="link">
+      {#each pages as { page, slug: s }}
+        <a
+          sapper-noscroll
+          href="/{s}"
+          class="navLink"
+          class:active="{s === slug}"
+        >
           <span>{page}</span>
-        </RouterLink>
+        </a>
       {/each}
     </div>
     {#if $isDLResolution}
       <div class="contactContainer">
         <div class="social">
           {#each social as s}
-            <a href="{s.link}" class="socialLink">
+            <a
+              href="{s.link}"
+              class="socialLink"
+              rel="external"
+              target="_blank"
+            >
               <span class="visuallyHidden">{s.text}</span>
               <svelte:component this="{icons[s.type]}" />
             </a>
@@ -84,23 +94,22 @@
   </ul>
 </Dialog>
 
-<script lang="typescript">
-  import RouterLink from '@spaceavocado/svelte-router/component/link'
-  import { router } from '@spaceavocado/svelte-router'
+<script context="module" lang="ts">
+  export async function preload({ params: { slug } }) {
+    return { slug }
+  }
+</script>
+
+<script lang="ts">
   import { tick } from 'svelte'
   import { pages, email, social } from '../db'
   import Dialog from '../components/dialog.svelte'
   import VkIcon from '../icons/vk.svelte'
   import TelegramIcon from '../icons/telegram.svelte'
   import InstagramIcon from '../icons/instagram.svelte'
-  import ResizeObserver from 'resize-observer-polyfill'
   import { isDLResolution } from '../stores/resolution'
 
-  export let slug
-  export let route
-  route
-
-  $router.onNavigationChanged(() => window.scrollTo(0, 0))
+  export let slug: string
 
   let imagesInDialogContainerEl: HTMLElement
 
@@ -122,7 +131,7 @@
     ).find((i: HTMLImageElement) => i.src.includes(src))?.parentElement
       .parentElement
 
-    let observerTimeout
+    let observerTimeout: number
 
     new ResizeObserver((_mutations, observer) => {
       li.scrollIntoView()
@@ -171,7 +180,7 @@
     width: 100%;
   }
 
-  .logoContainer > :global(.link) {
+  .logoLink {
     position: absolute;
     top: 0;
     left: 0;
@@ -207,7 +216,7 @@
     }
   }
 
-  .linksContainer > :global(.link) {
+  .navLink {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -316,8 +325,7 @@
       pointer-events: none;
     }
 
-    &:hover::after,
-    &:focus-within::after {
+    &:hover::after {
       opacity: 0.3;
     }
   }
@@ -362,8 +370,7 @@
       line-height: 29px;
     }
 
-    .imageContainer:hover &,
-    .imageContainer:focus-within & {
+    .imageContainer:hover {
       opacity: 1;
     }
   }

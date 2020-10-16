@@ -1,0 +1,37 @@
+@font-face {
+  font-family: montserrat;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Montserrat-Bold'),
+    url('/fonts/Montserrat-Bold.woff2') format('woff2'),
+    url('/fonts/Montserrat-Bold.woff') format('woff');
+  font-display: var(--font-display);
+}
+
+@font-face {
+  font-family: montserrat;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Montserrat-Medium'),
+    url('/fonts/Montserrat-Medium.woff2') format('woff2'),
+    url('/fonts/Montserrat-Medium.woff') format('woff');
+  font-display: var(--font-display);
+}
+
+@font-face {
+  font-family: baloo;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Baloo-Regular'),
+    url('/fonts/Baloo-Regular.woff2') format('woff2'),
+    url('/fonts/Baloo-Regular.woff') format('woff');
+  font-display: var(--font-display);
+}
+
+@custom-media --ml (width >= 576px);
+@custom-media --t (width >= 768px);
+@custom-media --d (width >= 992px);
+@custom-media --dl (width >= 1200px);
