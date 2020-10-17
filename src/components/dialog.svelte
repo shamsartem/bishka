@@ -1,4 +1,4 @@
-{#if visible}
+{#if isVisible}
   <div
     class="dialog"
     use:portal
@@ -6,7 +6,11 @@
     bind:this="{dialogEl}"
     on:keydown="{handleKeyDown}"
   >
-    <div class="dialogWrapper" class:fullscreen use:clickoutside="{hideDialog}">
+    <div
+      class="dialogWrapper"
+      class:isFullScreen
+      use:clickoutside="{hideDialog}"
+    >
       <button class="closeButton" on:click="{hideDialog}">
         <span class="visuallyHidden">Close dialog</span>
       </button>
@@ -23,8 +27,8 @@
   import backdropIsVisible from '../stores/backdrop-is-visible'
   import { BACKDROP_TRANSITION_DURATION, KEY_ESC } from '../const'
 
-  export let visible
-  export let fullscreen
+  export let isVisible
+  export let isFullScreen
 
   let dialogEl
   let focusTrap
@@ -32,7 +36,7 @@
   const activateFocusTrap = () => {
     focusTrap = createFocusTrap(dialogEl, {
       onDeactivate() {
-        visible = false
+        isVisible = false
       },
     })
     focusTrap.activate()
@@ -45,7 +49,7 @@
   let firstTime = true
   $: if (firstTime) {
     firstTime = false
-  } else if (visible) {
+  } else if (isVisible) {
     backdropIsVisible.set(true)
     setTimeout(() => {
       activateFocusTrap()
@@ -56,7 +60,7 @@
   }
 
   const hideDialog = () => {
-    visible = false
+    isVisible = false
   }
 
   const handleKeyDown = (
@@ -90,7 +94,7 @@
     max-width: 100%;
     margin: auto;
 
-    &.fullscreen {
+    &.isFullScreen {
       width: 100%;
     }
   }

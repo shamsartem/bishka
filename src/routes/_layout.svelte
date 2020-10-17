@@ -1,4 +1,7 @@
 <CommonStyles />
+<svelte:head>
+  <title>{title}</title>
+</svelte:head>
 <Resolution />
 <div class="wrapper">
   <slot />
@@ -9,9 +12,11 @@
   import Resolution from '../components/resolution.svelte'
   import CommonStyles from '../common-styles/common-styles.svelte'
   import Backdrop from '../components/backdrop.svelte'
+  import { pages } from '../db'
 
-  export let segment
-  segment
+  export let segment: string
+
+  $: title = pages.find((page) => page.slug === segment)?.page || 'Bishka'
 </script>
 
 <style lang="postcss">

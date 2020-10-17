@@ -11,12 +11,7 @@
     </div>
     <div class="linksContainer">
       {#each pages as { page, slug: s }}
-        <a
-          sapper-noscroll
-          href="/{s}"
-          class="navLink"
-          class:active="{s === slug}"
-        >
+        <a href="/{s}" class="navLink" class:active="{s === slug}">
           <span>{page}</span>
         </a>
       {/each}
@@ -62,15 +57,15 @@
           </figcaption>
         {/if}
       </figure>
-      <button
-        aria-hidden="true"
-        class="openImageButton"
-        on:click="{() => showDialog(image.src)}"
-      ></button>
+      <a href="{`${slug}#${image.fileName}`}" class="openImageButton">
+        <span
+          class="visuallyHidden"
+        >{`Open ${image.fileName} full screen`}</span>
+      </a>
     </li>
   {/each}
 </ul>
-<Dialog bind:visible="{dialogIsVisible}" fullscreen>
+<Dialog bind:isVisible="{isDialogVisible}" isFullScreen>
   <ul class="listInDialog" bind:this="{imagesInDialogContainerEl}">
     {#each page.images as image}
       <li>
@@ -101,17 +96,21 @@
 </script>
 
 <script lang="ts">
-  import { tick } from 'svelte'
+  import { onMount, tick } from 'svelte'
   import { pages, email, social } from '../db'
   import Dialog from '../components/dialog.svelte'
   import VkIcon from '../icons/vk.svelte'
   import TelegramIcon from '../icons/telegram.svelte'
   import InstagramIcon from '../icons/instagram.svelte'
   import { isDLResolution } from '../stores/resolution'
+  import { goto } from '@sapper/app'
 
   export let slug: string
 
+  $: removeHash = () => goto(`/${slug}`)
+
   let imagesInDialogContainerEl: HTMLElement
+  let isMounted = false
 
   const icons = {
     vk: VkIcon,
@@ -119,16 +118,16 @@
     instagram: InstagramIcon,
   }
 
-  let dialogIsVisible = false
+  let isDialogVisible = false
 
-  const showDialog = async (src: string) => {
-    dialogIsVisible = true
+  const showDialog = async (fileName: string) => {
+    isDialogVisible = true
 
     await tick()
 
     const li = Array.from(
       document.querySelectorAll('.imageInDialog'),
-    ).find((i: HTMLImageElement) => i.src.includes(src))?.parentElement
+    ).find((i: HTMLImageElement) => i.src.includes(fileName))?.parentElement
       .parentElement
 
     let observerTimeout: number
@@ -142,7 +141,36 @@
     }).observe(imagesInDialogContainerEl)
   }
 
+  $: if (isMounted && !isDialogVisible) {
+    removeHash()
+  }
+
   $: page = pages.find(({ slug: s }) => slug === s)
+
+  const handleHashChange = () => {
+    const { hash } = window.location
+    const fileName = hash.substr(1)
+
+    if (!fileName) {
+      isDialogVisible = false
+      return
+    }
+
+    const isImageAvailable =
+      page.images.find((image) => image.fileName === fileName) !== undefined
+
+    if (isImageAvailable) {
+      showDialog(fileName)
+    } else {
+      removeHash()
+    }
+  }
+
+  onMount(() => {
+    isMounted = true
+    handleHashChange()
+    window.addEventListener('hashchange', handleHashChange)
+  })
 </script>
 
 <style lang="postcss">
@@ -368,10 +396,6 @@
       left: 20px;
       font-size: 24px;
       line-height: 29px;
-    }
-
-    .imageContainer:hover {
-      opacity: 1;
     }
   }
 

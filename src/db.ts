@@ -18,6 +18,7 @@ export type Image = {
   description: string
   src: string
   previewSrc: string
+  fileName: string
 }
 
 export type Page = {
@@ -33,10 +34,14 @@ export type Contact = {
   type: 'instagram' | 'telegram' | 'vk' | 'email' | 'address'
 }
 
-export const images = imagesData.map((image) => ({
-  ...trimAllFields(image),
-  src: `img/content/${image.src.trim()}`,
-}))
+export const images = imagesData.map((image) => {
+  const fileName = image.src.trim()
+  return {
+    ...trimAllFields(image),
+    src: `img/content/${fileName}`,
+    fileName,
+  }
+})
 
 export const pages: Array<Page> = pagesData.map((page) => ({
   ...trimAllFields(page),
