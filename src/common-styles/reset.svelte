@@ -88,6 +88,7 @@
     vertical-align: baseline;
   }
 
+  img,
   article,
   aside,
   details,
@@ -177,9 +178,5 @@
     font-size: inherit;
     font-weight: inherit;
     text-decoration: none;
-  }
-
-  img {
-    display: block;
   }
 </style>
