@@ -1,5 +1,6 @@
 <style global lang="postcss">
   :root {
+    --font-display: swap;
     /* Font */
     --ff-default: montserrat, arial, sans-serif;
     --ff-baloo: baloo, arial, sans-serif;
