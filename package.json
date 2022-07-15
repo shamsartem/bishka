@@ -46,7 +46,7 @@
     "stylelint": "^13.7.2",
     "stylelint-config-property-sort-order-smacss": "^6.3.0",
     "stylelint-config-standard": "^20.0.0",
-    "svelte": "^3.17.3",
+    "svelte": "^3.49.0",
     "svelte-check": "^1.0.46",
     "svelte-preprocess": "^4.3.0",
     "tslib": "^2.0.1",
