@@ -1,24 +1,11 @@
-// @ts-ignore
-import pagesData from './db-data/pages.csv'
-// @ts-ignore
-import imagesData from './db-data/images.csv'
-// @ts-ignore
-import contactsData from './db-data/contacts.csv'
-
-const trimAllFields = (obj: { [key: string]: string }) =>
-  Object.entries(obj).reduce(
-    (acc, [k, v]) => ({ ...acc, [k.trim()]: v.trim() }),
-    {},
-  )
+import pagesFromJson from './db/pages.json' assert { type: 'json' }
 
 export type Image = {
-  page: string
-  featured: string
-  fullscreen: string
+  featured: boolean
+  fullscreen: boolean
   description: string
-  src: string
-  previewSrc: string
   fileName: string
+  src: string
 }
 
 export type Page = {
@@ -34,28 +21,33 @@ export type Contact = {
   type: 'instagram' | 'telegram' | 'vk' | 'email' | 'address'
 }
 
-export const images = imagesData.map((image) => {
-  const fileName = image.src.trim()
-  return {
-    ...trimAllFields(image),
-    src: `img/content/${fileName}`,
-    fileName,
-  }
-})
-
-export const pages: Array<Page> = pagesData.map((page) => ({
-  ...trimAllFields(page),
-  images: images.filter((image) => image.page === page.page),
-}))
-
-const trimmedContacts = contactsData.map((contact) => trimAllFields(contact))
-
-export const email: Contact | undefined = trimmedContacts.find(
-  (contact) => contact.type === 'email',
+export const pages = pagesFromJson.map(
+  (page): Page => ({
+    ...page,
+    images: page.images.map(
+      (image): Image => ({
+        ...image,
+        src: `img/content/${image.fileName}`,
+      }),
+    ),
+  }),
 )
-export const address: Contact | undefined = trimmedContacts.find(
-  (contact) => contact.type === 'address',
-)
-export const social: Array<Contact> = trimmedContacts.filter((contact) =>
-  ['vk', 'telegram', 'instagram'].includes(contact.type),
-)
+
+export const email: Contact = {
+  type: 'email',
+  text: 'bishkanguyen@gmail.com',
+  link: 'mailto:bishkanguyen@gmail.com',
+}
+
+export const social: Array<Contact> = [
+  {
+    type: 'instagram',
+    text: 'instagram',
+    link: 'https://www.instagram.com/bebibishka',
+  },
+  {
+    type: 'vk',
+    text: 'vk',
+    link: 'https://vk.com/bishkanguyen',
+  },
+]

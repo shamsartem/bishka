@@ -1,0 +1,653 @@
+[
+  {
+    "page": "Photo",
+    "description": "Individual photo shoots. Love stories",
+    "slug": "photo",
+    "images": [
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-1.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-2.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-3.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-4.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-5.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-6.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-7.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-8.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-9.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-10.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-11.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-12.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-13.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-14.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-15.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-16.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-17.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-18.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-19.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-20.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-21.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-22.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-23.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-24.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-25.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-26.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-27.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-28.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-29.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-30.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-31.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-32.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-33.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-34.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-35.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-36.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-37.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-38.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-39.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-40.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-41.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-42.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-43.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-44.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-45.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-46.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-47.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-48.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-49.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-50.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-51.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-52.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-53.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-54.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-55.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-56.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-57.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-58.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-59.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-60.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-61.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-62.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-63.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-64.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-65.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-66.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-67.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-68.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-69.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-70.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-71.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-72.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-73.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-74.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-75.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-76.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-77.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-78.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-79.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-80.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-81.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "photo-82.jpg"
+      }
+    ]
+  },
+  {
+    "page": "Design",
+    "description": "UI/UX. Web-design. Graphical design",
+    "slug": "design",
+    "images": [
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Yves Rocher Sliders",
+        "fileName": "design-1.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": true,
+        "description": "Yves Rocher new collection newsletter",
+        "fileName": "design-2.gif"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Yves Rocher newsletter",
+        "fileName": "design-3.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Yves Rocher limited collection newsletter",
+        "fileName": "design-4.gif"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Contextual advertising for sale",
+        "fileName": "design-5.gif"
+      },
+      {
+        "featured": true,
+        "fullscreen": true,
+        "description": "Contextual advertising with different sizes",
+        "fileName": "design-6.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Contextual advertising",
+        "fileName": "design-7.gif"
+      },
+      {
+        "featured": true,
+        "fullscreen": true,
+        "description": "Old personal website",
+        "fileName": "design-8.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Music website redesign",
+        "fileName": "design-9.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Serge banner",
+        "fileName": "design-10.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "BALMESSENCE contextual advertising",
+        "fileName": "design-11.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": true,
+        "description": "Dreamland poster",
+        "fileName": "design-12.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": true,
+        "description": "Technical university graduate work",
+        "fileName": "design-13.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": true,
+        "description": "Business card",
+        "fileName": "design-14.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": true,
+        "description": "Flower shop main page and newsletter",
+        "fileName": "design-15.jpg"
+      }
+    ]
+  },
+  {
+    "page": "Art",
+    "description": "Art, portraits and illustrations",
+    "slug": "art",
+    "images": [
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-1.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-2.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-3.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-4.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-5.jpg"
+      },
+      {
+        "featured": false,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-6.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-7.jpg"
+      },
+      {
+        "featured": true,
+        "fullscreen": false,
+        "description": "",
+        "fileName": "art-8.jpg"
+      }
+    ]
+  }
+]

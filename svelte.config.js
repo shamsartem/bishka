@@ -1,13 +1,17 @@
-const sveltePreprocess = require('svelte-preprocess')
-const fs = require('fs')
-const mediaQueries = fs
-  .readFileSync('./src/common-styles/styles-to-prepend.css')
-  .toString()
+import adapter from '@sveltejs/adapter-auto'
+import preprocess from 'svelte-preprocess'
+import postcss from './postcssrc.cjs'
 
-module.exports = {
-  preprocess: sveltePreprocess({
-    postcss: {
-      prependData: mediaQueries,
-    },
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  // Consult https://github.com/sveltejs/svelte-preprocess
+  // for more information about preprocessors
+  preprocess: preprocess({
+    postcss,
   }),
+  kit: {
+    adapter: adapter(),
+  },
 }
+
+export default config

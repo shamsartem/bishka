@@ -9,7 +9,7 @@
     <div
       class="dialogWrapper"
       class:isFullScreen
-      use:clickoutside="{hideDialog}"
+      use:clickOutside="{hideDialog}"
     >
       <button class="closeButton" on:click="{hideDialog}">
         <span class="visuallyHidden">Close dialog</span>
@@ -20,110 +20,107 @@
 {/if}
 
 <script lang="ts">
-  import { fade } from 'svelte/transition'
-  import { createFocusTrap } from 'focus-trap'
-  import portal from '../actions/portal'
-  import clickoutside from '../actions/clickoutside'
-  import backdropIsVisible from '../stores/backdrop-is-visible'
-  import { BACKDROP_TRANSITION_DURATION, KEY_ESC } from '../const'
+import { fade } from 'svelte/transition'
+import { createFocusTrap, type FocusTrap } from 'focus-trap'
 
-  export let isVisible
-  export let isFullScreen
+import { portal, clickOutside } from '../actions'
+import { backdropIsVisible } from '../stores/backdrop-is-visible'
+import { BACKDROP_TRANSITION_DURATION, KEY_ESC } from '../const'
 
-  let dialogEl
-  let focusTrap
+export let isVisible: boolean
+export let isFullScreen: boolean
 
-  const activateFocusTrap = () => {
-    focusTrap = createFocusTrap(dialogEl, {
-      onDeactivate() {
-        isVisible = false
-      },
-    })
-    focusTrap.activate()
-  }
+let dialogEl: HTMLDivElement
+let focusTrap: FocusTrap | undefined
 
-  const deactivateFocusTrap = () => {
-    focusTrap.deactivate()
-  }
+const activateFocusTrap = (): void => {
+  focusTrap = createFocusTrap(dialogEl, {
+    onDeactivate(): void {
+      isVisible = false
+    },
+  })
+  focusTrap.activate()
+}
 
-  let firstTime = true
-  $: if (firstTime) {
-    firstTime = false
-  } else if (isVisible) {
-    backdropIsVisible.set(true)
-    setTimeout(() => {
-      activateFocusTrap()
-    })
-  } else {
-    deactivateFocusTrap()
-    backdropIsVisible.set(false)
-  }
+const deactivateFocusTrap = (): void => {
+  focusTrap?.deactivate()
+}
 
-  const hideDialog = () => {
-    isVisible = false
-  }
+let firstTime = true
+$: if (firstTime) {
+  firstTime = false
+} else if (isVisible) {
+  backdropIsVisible.set(true)
+  setTimeout((): void => {
+    activateFocusTrap()
+  })
+} else {
+  deactivateFocusTrap()
+  backdropIsVisible.set(false)
+}
 
-  const handleKeyDown = (
-    e: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement },
-  ) => {
-    e.code === KEY_ESC && hideDialog()
-  }
+const hideDialog = (): void => {
+  isVisible = false
+}
+
+const handleKeyDown = (
+  e: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement },
+): void => {
+  e.code === KEY_ESC && hideDialog()
+}
 </script>
 
 <style lang="postcss">
-  .dialog {
-    display: flex;
-    position: fixed;
-    z-index: 200;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    align-items: center;
-    justify-content: center;
+.dialog {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.dialogWrapper {
+  position: relative;
+  display: flex;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: auto;
+  &.isFullScreen {
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
   }
+}
 
-  .dialogWrapper {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    align-items: flex-end;
-    max-width: 100%;
-    margin: auto;
-
-    &.isFullScreen {
-      width: 100%;
-    }
+.closeButton {
+  position: fixed;
+  z-index: 1;
+  top: 10px;
+  right: 20px;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--c-black);
+  border-radius: 50%;
+  &::before,
+  &::after {
+    position: absolute;
+    width: 60%;
+    height: 2px;
+    background-color: var(--c-yellow);
+    content: '';
+    transform: rotate(45deg);
   }
-
-  .closeButton {
-    display: flex;
-    position: sticky;
-    z-index: 1;
-    top: 10px;
-    right: 20px;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--c-black);
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      width: 60%;
-      height: 2px;
-      transform: rotate(45deg);
-      background-color: var(--c-yellow);
-    }
-
-    &::after {
-      transform: rotate(-45deg);
-    }
+  &::after {
+    transform: rotate(-45deg);
   }
+}
 </style>

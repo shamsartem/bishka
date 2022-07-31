@@ -1,10 +1,5 @@
 <svg viewBox="0 0 28 28" fill="none">
-  <circle
-    cx="14"
-    cy="14"
-    r="13"
-    stroke="currentColor"
-    stroke-width="2"
+  <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"
   ></circle>
   <path
     d="M14.0001 11.8372C12.8091 11.8372 11.8372 12.8092 11.8372 14.0002C11.8372
@@ -29,12 +24,11 @@
     10.5359C18.2417 10.638 18.2217 10.7391 18.1827 10.8335C18.1437 10.9279
     18.0864 11.0136 18.0142 11.0858C17.942 11.158 17.8563 11.2152 17.762
     11.2542C17.6676 11.2933 17.5665 11.3133 17.4644 11.3131Z"
-    fill="currentColor"
-  ></path>
+    fill="currentColor"></path>
 </svg>
 
 <style lang="postcss">
-  svg {
-    width: 100%;
-  }
+svg {
+  width: 100%;
+}
 </style>
